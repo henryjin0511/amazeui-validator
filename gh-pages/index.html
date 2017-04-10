@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>amazeui-validator</title>
+	<script src="./resource/jquery.min.js"></script>
+	<script src="./src/amazeui-validator.js"></script>
+	<link rel="stylesheet" href="./src/amazeui-validator.css" />
+	<style type="text/css">
+		*,
+		*::before,
+		*::after {
+			margin: 0;
+			padding: 0;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+		body {
+			padding: 20px 0 80px;
+			text-align: center;
+		}
+		.example-form {
+			margin: 0 auto;
+			width: 600px;
+		}
+		.example-form .form-group {
+			margin: 10px auto;
+			width: 100%;
+		}
+		.example-form .form-group.form-group-valid {
+			color: #459f45;
+		}
+		.example-form .form-group.form-group-invalid {
+			color: #ff5357;
+		}
+		.example-form .form-group input[type=text],
+		.example-form .form-group input[type=password],
+		.example-form .form-group input[type=email],
+		.example-form .form-group select {
+			display: inline-block;
+			padding: 0 10px;
+			width: 300px;
+			height: 30px;
+			line-height: 28px;
+			color: #000;
+			vertical-align: top;
+		}
+		.example-form .form-group input[type=checkbox] {
+			margin-left: 10px;
+			width: 14px;
+			height: 14px;
+			vertical-align: middle;
+		}
+		.example-form .form-group textarea {
+			display: inline-block;
+			padding: 0 10px;
+			width: 600px;
+			line-height: 28px;
+			vertical-align: top;
+		}
+		.example-form .form-group .error {
+			display: inline-block;
+			width: 200px;
+			height: 30px;
+			line-height: 28px;
+		}
+		.example-form .form-group button {
+			margin: 10px auto;
+			display: block;
+			width: 200px;
+			line-height: 30px;
+		}
+	</style>
+</head>
+<body>
+<p><a href="https://jinming6568.github.io/amazeui-validator/release/amazeui-validator.zip">下载</a></p>
+<br />
+<form id="form1" class="example-form">
+	<h3>表单一（测试常用功能和前端验证提交）</h3>
+	<div class="form-group">
+		<input type="text" placeholder="检测文本必须" required />
+		<p class="error">测试required验证~</p>
+	</div>
+	<div class="form-group">
+		<input type="password" id="password" minlength="6" placeholder="输入密码" required />
+		<p class="error">测试密码验证至少6位</p>
+	</div>
+	<div class="form-group">
+		<input type="password" data-equal-to="#password" placeholder="确认密码" required />
+		<p class="error">测试确认密码~</p>
+	</div>
+	<div class="form-group">
+		<input type="text" pattern="^\d+$" placeholder="测试只输入数字" required />
+		<p class="error">测试只输入数字</p>
+	</div>
+	<div class="form-group">
+		<input type="email" placeholder="测试邮箱" required />
+		<p class="error">测试邮箱</p>
+	</div>
+	<div class="form-group">
+		<select min="1">
+			<option value="0">请选择</option>
+			<option value="1">测试一</option>
+			<option value="2">测试二</option>
+			<option value="3">测试三</option>
+		</select>
+		<p class="error">测试邮箱</p>
+	</div>
+	<div class="form-group">
+		<textarea rows="3" minlength="6" required></textarea>
+		<p class="error">测试textarea</p>
+	</div>
+	<div class="form-group">
+		<label><input name="testcheckbox" type="checkbox" minchecked="2" required />最少勾选两个哦~</label>
+		<label><input name="testcheckbox" type="checkbox" minchecked="2" required />最少勾选两个哦~</label>
+		<label><input name="testcheckbox" type="checkbox" minchecked="2" required />最少勾选两个哦~</label><br />
+		<label><input name="testcheckbox" type="checkbox" minchecked="2" required />最少勾选两个哦~</label>
+		<label><input name="testcheckbox" type="checkbox" minchecked="2" required />最少勾选两个哦~</label>
+		<label><input name="testcheckbox" type="checkbox" minchecked="2" required />最少勾选两个哦~</label>
+	</div>
+	<br />
+	<div class="form-group">
+		<label><input name="testradio" type="radio" required />必须选一个哦~~</label>
+		<label><input name="testradio" type="radio" required />必须选一个哦~~</label>
+		<label><input name="testradio" type="radio" required />必须选一个哦~~</label>
+	</div>
+	<br />
+	<div class="form-group">
+		<label>请必须勾选<input type="checkbox" required /></label>
+	</div>
+	<div class="form-group">
+		<button type="submit">提交吧~</button>
+	</div>
+</form>
+<br />
+<hr />
+<br />
+<form id="form2" class="example-form">
+	<h3>表单二（测试异步验证）</h3>
+	<div class="form-group">
+		<input type="text" name="normal" placeholder="检测required" required />
+		<p class="error">测试required验证~</p>
+	</div>
+	<div class="form-group">
+		<input type="text" name="async" placeholder="模拟异步验证" required />
+		<p class="error">模拟异步验证~</p>
+	</div>
+	<div class="form-group">
+		<button type="submit">提交吧~</button>
+	</div>
+</form>
+<script>
+	$(function(){
+		$('#form1').formValid({
+			alwaysRevalidate:true,
+			onValid:function (validity) {
+				var $field = $(validity.field);
+				$field.siblings('.error').text('好了好了~');
+			},
+			onInValid:function (validity) {
+				var $field = $(validity.field);
+				$field.siblings('.error').text('错误啦~');
+			},
+			submit:function (e) {
+				var formValidity = this.isFormValid();
+				if(formValidity){
+					alert('验证成功，可以通过this.$element找到当前form的jQuery对象，进行下一步处理');
+					return;
+				}
+				alert(false);
+				return false;
+			}
+		});
+		$('#form2').formValid({
+			alwaysRevalidate:true,
+			validate:function(validity){
+				var $field = $(validity.field);
+				if($field[0].name === 'async'){
+					$field.siblings('.error').text('在检测啦~模拟服务器交互');
+					var dtd = $.Deferred();
+					setTimeout(function(){
+						validity.valid = true;
+						dtd.resolve(validity);
+					},2000);
+					return dtd.promise();
+				}
+			},
+			onValid:function (validity) {
+				var $field = $(validity.field);
+				$field.siblings('.error').text('好了好了~');
+			},
+			onInValid:function (validity) {
+				var $field = $(validity.field);
+				$field.siblings('.error').text('错误啦~');
+			},
+			submit:function (e) {
+				var formValidity = this.isFormValid();
+				$.when(formValidity).then(function() {
+					alert('验证成功喔~');
+				}, function() {
+					alert('验证失败喔~');
+				});
+				return false;
+			}
+		});
+	})
+</script>
+</body>
+</html>

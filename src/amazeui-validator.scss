@@ -1,0 +1,50 @@
+$normal-border-color: #d1d1d1;
+$focus-color: #3bb4f2;
+$success-color: #459f45;
+$error-color: #ff5357;
+$box-shadow-color: rgba(0 , 0 , 0 , .075);
+
+.validator {
+    .form-group-success {
+        label {
+            color: $success-color;
+        }
+    }
+
+    .form-group-error {
+        label {
+            color: $error-color;
+        }
+    }
+
+    input,
+    select,
+    textarea {
+        transition: border-color,box-shadow .15s ease-in-out;
+        border: 1px solid $normal-border-color;
+
+        &:focus {
+            outline: none;
+            border: 1px solid $focus-color;
+            box-shadow: inset 0 1px 1px $box-shadow-color, 0 0 5px lighten($focus-color , 30%);
+        }
+
+        &.field-valid {
+            border: 1px solid $success-color;
+            box-shadow: inset 0 1px 1px $box-shadow-color;
+
+            &:focus {
+                box-shadow: inset 0 1px 1px $box-shadow-color, 0 0 5px lighten($success-color , 30%);
+            }
+        }
+
+        &.field-invalid {
+            border: 1px solid $error-color;
+            box-shadow: inset 0 1px 1px $box-shadow-color;
+
+            &:focus {
+                box-shadow: inset 0 1px 1px $box-shadow-color, 0 0 5px lighten($error-color , 20%);
+            }
+        }
+    }
+}
