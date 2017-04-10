@@ -11,7 +11,7 @@
 1. amazeui中表单验证对于没有name的checkbox和radio挂载的minchecked属性是不做验证的，在此修复。
 2. amazeui中表单验证对于参数alwaysRevalidate默认为false且没有相关介绍，导致某些验证通过后再次修改依然能够通过，例如：确认密码输入框验证通过后再去修改原密码框，此时点击提交验证是通过的，将alwaysRevalidate设置为true可在每次点击提交按钮时都重新进行全部验证，用或不用取决于项目。
 
-## [Demo page](https://jinming6568.github.io/datepicker/)
+## [Demo page](https://jinming6568.github.io/amazeui-validator/)
 
 ## 文档
 
